@@ -1,6 +1,8 @@
 mvn*
 target
 *.log
+.idea/
+.settings/
 
 # dependencies
 ui/node_modules
