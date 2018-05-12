@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Grid, Row, Col} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 import store from './store.jpg';
 import fruit from './fruit.jpg';
 import medicine from './medicine.jpg';
@@ -65,7 +65,6 @@ class App extends Component {
                     <Row>
                         <Col>
                             <SearchBox className="searchBox"/>
-                            <Button>Search</Button>
                         </Col>
                     </Row>
                 </Grid>
