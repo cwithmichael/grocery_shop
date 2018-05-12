@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FormGroup, FormControl, HelpBlock} from 'react-bootstrap';
+import {FormGroup, FormControl, HelpBlock, Button} from 'react-bootstrap';
 
 export default class SearchBox extends Component {
     constructor(props, context) {
@@ -31,7 +31,9 @@ export default class SearchBox extends Component {
 
     render() {
         return (
-            <form>
+            <div>
+            <div className="col-xs-4"></div>
+            <form className="col-xs-4">
                 <FormGroup
                     controlId="formBasicText"
                     validationState={this.getValidationState()}>
@@ -43,7 +45,10 @@ export default class SearchBox extends Component {
                         onChange={this.handleChange}/>
                     <FormControl.Feedback/>
                 </FormGroup>
+                <Button type="submit" className="btn btn-danger">Submit</Button>
             </form>
+            <div className="col-xs-4"></div>
+            </div>
         );
     }
 }
