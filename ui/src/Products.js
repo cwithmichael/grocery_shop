@@ -47,7 +47,7 @@ export default class Product extends Component {
       {this.state.products.map((product) =>
         <Col xs={6} md={4} key={product.pid}>
           <Image src={this.state.image} className="productThumb" alt="product" responsive/>
-          <h3>{product.description}<br/>${product.price}<br/>{product.xFor} {product.unit}</h3>
+          <h3>{product.description}<br/>${Number(product.price).toFixed(2)}<br/>{product.xFor} {product.unit}</h3>
         </Col>
       )}
                   </Row>
