@@ -5,12 +5,17 @@ export default class NavigationMenu extends Component {
     render() {
         return (
             <Navbar>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="/">Michael's Shop</a>
+                    </Navbar.Brand>
+                </Navbar.Header>
                 <Nav>
                     <NavItem eventKey={1} href="/">
-                        Home
+                        Products
                     </NavItem>
                     <NavItem eventKey={2} href="#">
-                        Products
+                        Sales
                     </NavItem>
                 </Nav>
             </Navbar>

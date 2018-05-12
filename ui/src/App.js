@@ -39,9 +39,6 @@ class App extends Component {
         return (
             <div className="App">
                 <Grid fluid={true}>
-                    <Row className="header">
-                        <header className="App-title">Welcome to Michael's Shop</header>
-                    </Row>
                     <Row>
                         <NavigationMenu/>
                     </Row>
