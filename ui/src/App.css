@@ -27,6 +27,8 @@ input{
   border-bottom: 1px solid #ccc;
   margin-bottom:2em;
   text-transform: capitalize;
+  color:black;
+
 }
 
 .departmentsGrid > h2 {
@@ -96,6 +98,10 @@ input{
   text-transform: capitalize;
 }
 
+ a:hover{
+  color:darkred;
+}
+
 .navbar .navbar-nav {
   text-align: left;
   color:black;
@@ -106,5 +112,10 @@ input{
 }
 
 .navbar .navbar-brand {
+  color:darkred;
+}
+
+.helpBlock {
   color:black;
+  font-size:19px;
 }
