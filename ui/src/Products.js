@@ -58,6 +58,7 @@ export default class Product extends Component {
 
         return (
             <div className="Products">
+            <h2>{this.props.department}</h2>
                 <SplitButton bsStyle={'default'} title={'Sort by'}>
                     <MenuItem onSelect={e => this.onSort(e, 'price', 'asc')}>Price: Low to High</MenuItem>
                     <MenuItem onSelect={e => this.onSort(e, 'price', 'desc')}>Price: High to Low</MenuItem>
