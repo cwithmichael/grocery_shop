@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { FormGroup, FormControl, HelpBlock } from 'react-bootstrap';
 
 export default class SearchBox extends Component {
   constructor(props, context) {
@@ -35,7 +35,7 @@ export default class SearchBox extends Component {
           <FormControl
             type="text"
             value={this.state.value}
-            placeholder="Enter text"
+            placeholder=""
             onChange={this.handleChange}
           />
           <FormControl.Feedback />
