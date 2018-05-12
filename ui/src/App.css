@@ -26,6 +26,7 @@ input{
   margin-top:1em;
   border-bottom: 1px solid #ccc;
   margin-bottom:2em;
+  text-transform: capitalize;
 }
 
 .departmentsGrid > h2 {
@@ -59,6 +60,29 @@ input{
   box-shadow: 6px 6px 6px 6px rgba(139, 136, 136, 0.719);
 }
 
+.productThumb{
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(110, 101, 101, 0.521);
+  transition: 0.3s;
+  width:200px;
+  height: 100px;
+ }
+ 
+ /* For devices 768px and larger: */
+ @media only screen and (min-device-width: 768px) {
+   .productThumb{
+     /* Add shadows to create the "card" effect */
+     box-shadow: 0 4px 8px 0 rgba(110, 101, 101, 0.521);
+     transition: 0.3s;
+     width:500px;
+     height: 200px;
+     margin-top: 2em;
+    }
+   }
+ 
+ .productThumb:hover {
+   box-shadow: 6px 6px 6px 6px rgba(139, 136, 136, 0.719);
+ }
 .App-title {
   font-size: 1.5em;
   background-color:black;
@@ -69,6 +93,7 @@ input{
   color: black;
   font-family: 'Times New Roman', Times, serif;
   align-content: center;
+  text-transform: capitalize;
 }
 
 .navbar .navbar-nav {
