@@ -14,8 +14,30 @@ export default class Product extends Component {
         products: [],
         image: null,
 	      isLoading: false
-	    };
-	  }
+      };
+      
+      this.onSort = this.onSort.bind(this)
+
+    }
+    
+    onSort(event, sortKey, direction){
+      /*
+      assuming your data is something like
+      [
+        {accountname:'foo', negotiatedcontractvalue:'bar'},
+        {accountname:'monkey', negotiatedcontractvalue:'spank'},
+        {accountname:'chicken', negotiatedcontractvalue:'dance'},
+      ]
+      */
+      const data = this.state.products;
+      if (direction==="asc")
+        data.sort((a,b) => a[sortKey]-b[sortKey])
+      else
+        data.sort((a,b) => b[sortKey]-a[sortKey])
+      this.setState({data})
+    }
+
+
 	componentDidMount() {
 		  this.setState({isLoading: true});
           if (this.props.department.toLowerCase() === "produce") {
@@ -39,8 +61,8 @@ export default class Product extends Component {
         <SplitButton
       bsStyle={'default'}
       title={'Sort by'}>
-      <MenuItem eventKey="1">Price: Low to High</MenuItem>
-      <MenuItem eventKey="2">Price: High to Low</MenuItem>
+      <MenuItem onSelect={e => this.onSort(e, 'price', 'asc')}>Price: Low to High</MenuItem>
+      <MenuItem onSelect={e => this.onSort(e, 'price', 'desc')}>Price: High to Low</MenuItem>
     </SplitButton>
       <Grid fluid={true}>
       <Row className="productsGrid">
