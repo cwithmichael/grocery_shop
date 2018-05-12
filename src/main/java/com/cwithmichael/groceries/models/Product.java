@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -15,7 +16,7 @@ public class Product {
 	public ObjectId id;
 
 	public String pid;
-	@Indexed
+	@TextIndexed
 	public String description;
 	public LocalDate lastSold;
 	public String shelfLife;
