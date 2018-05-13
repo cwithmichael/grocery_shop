@@ -7,18 +7,18 @@ import {
     SplitButton,
     MenuItem
 } from 'react-bootstrap';
-import store from './store.jpg';
-import fruit from './fruit.jpg';
-import medicine from './medicine.jpg';
-import './App.css';
+import store from '../images/store.jpg';
+import fruit from '../images/fruit.jpg';
+import medicine from '../images/medicine.jpg';
+import '../App.css';
+var _ = require('lodash');
 
-export default class Product extends Component {
+export default class DepartmentProducts extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             products: [],
-            image: null,
             isLoading: false
         };
 
@@ -39,27 +39,20 @@ export default class Product extends Component {
 
     componentDidMount() {
         this.setState({isLoading: true});
-        if (this.props.department.toLowerCase() === "produce") {
-            this.setState({image: fruit})
-        } else if (this.props.department.toLowerCase() === "grocery") {
-            this.setState({image: store})
-        } else {
-            this.setState({image: medicine})
-        }
         fetch('http://localhost:8080/api/products/search/findByDepartment?department=' + this.props.department)
             .then(response => response.json())
             .then(data => this.setState({products: data._embedded.products, isLoading: false}));
     }
-    
+
     render() {
         if (this.state.isLoading) {
             return <p>Loading...</p>;
         }
 
         return (
-            <div className="Products">
-            <h2>{this.props.department}</h2>
-                <SplitButton bsStyle={'default'} title={'Sort by'}>
+            <div className="DepartmentProducts">
+                <h2>{this.props.department}</h2>
+                <SplitButton bsStyle={'danger'} title={'Sort by'}>
                     <MenuItem onSelect={e => this.onSort(e, 'price', 'asc')}>Price: Low to High</MenuItem>
                     <MenuItem onSelect={e => this.onSort(e, 'price', 'desc')}>Price: High to Low</MenuItem>
                 </SplitButton>
@@ -70,11 +63,11 @@ export default class Product extends Component {
                             .products
                             .map((product) => <Col xs={6} md={4} key={product.pid}>
                                 <Image
-                                    src={this.state.image}
-                                    className="productThumb"
+                                    src={require(`../images/${product.description.toLowerCase()}.jpg`)}
+                                    className="productThumb center-block"
                                     alt="product"
                                     responsive/>
-                                <h3>{product.description}<br/>${Number(product.price).toFixed(2)}<br/>{product.xFor} {product.unit}</h3>
+                                <h3>{_.startCase(product.description)}<br/>${Number(product.price).toFixed(2)} ({product.xFor} {product.unit})</h3>
                             </Col>)}
                     </Row>
                 </Grid>

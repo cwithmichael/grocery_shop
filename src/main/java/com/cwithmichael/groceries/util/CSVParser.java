@@ -32,10 +32,10 @@ public final class CSVParser {
 			for (CSVRecord record : records) {
 				Product product = new Product();
 				product.setPid(record.get(0));
-				product.setDescription(record.get(1));
+				product.setDescription(record.get(1).trim().toLowerCase().replaceAll(" ", "_"));
 				product.setLastSold(LocalDate.parse(record.get(2), formatter));
 				product.setShelfLife(record.get(3));
-				product.setDepartment(record.get(4));
+				product.setDepartment(record.get(4).trim().toLowerCase().replaceAll(" ", "_"));
 				String price = record.get(5).trim();
 				product.setPrice(new BigDecimal(price.substring(1, price.length())));
 				product.setUnit(record.get(6));
