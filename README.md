@@ -38,7 +38,7 @@ Node/Npm
 
 
 ## Usage
-To run the application make sure you have a MongoDB instance running locally on port 27017. 
+Make sure you have a MongoDB instance running locally on port 27017. 
 
 Execute the following from the root directory after checking out the code:
 
