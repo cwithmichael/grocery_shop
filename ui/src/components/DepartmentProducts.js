@@ -52,8 +52,8 @@ export default class DepartmentProducts extends Component {
         }
         var count = 0;
         return (
-            <div className="DepartmentProducts">
-                <h2>{this.props.department}</h2>
+            <div className="departmentProducts">
+                <h2>{this.props.department} Department</h2>
                 <SplitButton bsStyle={'danger'} title={'Sort by'}>
                     <MenuItem onSelect={e => this.onSort(e, 'price', 'asc')}>Price: Low to High</MenuItem>
                     <MenuItem onSelect={e => this.onSort(e, 'price', 'desc')}>Price: High to Low</MenuItem>

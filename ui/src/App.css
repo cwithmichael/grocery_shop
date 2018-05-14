@@ -151,8 +151,20 @@ footer {
   font-family: 'Skranjk', cursive;
   color:black;
 }
-h5 {
+.popover h5 {
   font-family: 'Times New Roman', Times, serif;
   align-content: center;
   text-transform: capitalize;
+}
+
+.popover-title {
+  color: darkred;
+}
+
+.departmentProducts h2 {
+  font-family: 'Oswald', sans-serif;
+  align-content: center;
+  color: darkred;
+  text-transform: capitalize;
+  margin-bottom:1em;
 }
