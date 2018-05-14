@@ -152,56 +152,56 @@ class App extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.filtersPresent.size < 1) {
-            // If all numbers then assume searching by PID
-            if (this.state.value.match(/^[0-9]+$/) != null) {
-                console.log(this.state.value);
-                fetch('http://localhost:8080/api/products/search/findByPid?pid=' + this.state.value).then(res => {
-                    if (res.ok) {
-                        return res.json();
-                    } else {
-                        if (res.status === 404) {
-                            this.setState({notFound: true});
-                        }
-                        return Promise.reject({status: res.status});
-                        }
-                    })
-                    .then(res => this.setState({data: res, notFound: false}))
-                    .catch(err => this.setState({
-                        data: {
-                            error: err.status
-                        }
-                    }));
-            } else if (this.state.value.match(/^[A-Za-z]+$/) != null) {
-                // If all letters then assume searching by description and if that fails then
-                // try searching by department;
-                console.log(this.state.value);
-                fetch('http://localhost:8080/api/products/search/findByDescriptionLike?description=' + this.state.value).then(res => {
-                    if (res.ok) {
-                        return res.json();
-                    } else {
-                        return Promise.reject({status: res.status});
+        // if (this.state.filtersPresent.size < 1) { If all numbers then assume
+        // searching by PID
+        if (this.state.value.match(/^[0-9]+$/) != null) {
+            console.log(this.state.value);
+            fetch('http://localhost:8080/api/products/search/findByPid?pid=' + this.state.value).then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    if (res.status === 404) {
+                        this.setState({notFound: true});
                     }
-                }).then(res => {
-                    if (res && res._embedded.products.length > 0) {
-                        this.setState({data: res._embedded.products, notFound: false})
-                    } else {
-                        return Promise.reject({status: res.status});
+                    return Promise.reject({status: res.status});
                     }
-                }).catch(err => {
-                    this
-                        .checkDepartments()
-                        .then(res => this.setState({data: res._embedded.products, notFound: false}))
-                        .catch(err => this.setState({data: [], notFound: false}));
-                });
+                })
+                .then(res => this.setState({data: res, notFound: false}))
+                .catch(err => this.setState({
+                    data: {
+                        error: err.status
+                    }
+                }));
+        } else if (this.state.value.match(/^[A-Za-z]+$/) != null) {
+            // If all letters then assume searching by description and if that fails then
+            // try searching by department;
+            console.log(this.state.value);
+            fetch('http://localhost:8080/api/products/search/findByDescriptionLike?description=' + this.state.value).then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    return Promise.reject({status: res.status});
+                }
+            }).then(res => {
+                if (res && res._embedded.products.length > 0) {
+                    this.setState({data: res._embedded.products, notFound: false})
+                } else {
+                    return Promise.reject({status: res.status});
+                }
+            }).catch(err => {
+                this
+                    .checkDepartments()
+                    .then(res => this.setState({data: res._embedded.products, notFound: false}))
+                    .catch(err => this.setState({data: [], notFound: false}));
+            });
 
-            }
-        } else {
+        }
+        /*else {
             this
                 .searchWithFilters()
                 .then(res => this.setState({data: res._embedded.products, notFound: false}))
                 .catch(err => this.setState({data: [], notFound: false}));
-        }
+        }*/
         this.setState({filtersPresent: new Set()});
 
     }
