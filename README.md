@@ -28,7 +28,7 @@ Make it prettier
 Add sign-in option
 
 ## Requirements
-JDK 8
+JDK 8 (Make sure the JAVA_HOME environment variable is set)
 
 MongoDB
 
@@ -38,11 +38,13 @@ Node/Npm
 
 
 ## Usage
-To run the server, make sure you have a MongoDB instance running locally on port 27017 and please execute the following from the root directory:
+To run the application make sure you have a MongoDB instance running locally on port 27017. 
+
+Execute the following from the root directory after checking out the code:
 
 ```
 mvn spring-boot:run &
-cd /ui
+cd ui
 npm install
 npm start
 ```
