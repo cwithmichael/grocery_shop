@@ -1,4 +1,4 @@
-# Devotionals API 
+# Grocery Shop
 
 ## Overview
 This app allows you to search a databse of projects. 
@@ -18,9 +18,13 @@ If you search by all text, then it assumes you want to search by description. If
 
 ## Todo
 Implement FilterBy option. As of now it's not functional.
+
 Clean up the code.
+
 Add tests
+
 Make it prettier
+
 Add sign-in option
 
 ## Requirements
