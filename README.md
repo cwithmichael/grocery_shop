@@ -49,7 +49,7 @@ npm install
 npm start
 ```
 
-If your browser doesn't automatically open then go here:
+If your browser doesn't automatically open, then go here:
 
 ```
 http://localhost:3000/
