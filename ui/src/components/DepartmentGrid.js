@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom';
 
 const h2Style = {
     fontFamily: "'Oswald', sans-serif",
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'darkred'
 };
 
 const h3Style = {

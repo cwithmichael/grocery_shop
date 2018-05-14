@@ -35,72 +35,9 @@ export default class SearchBox extends Component {
 
         this.state = {
             startDate: moment(),
-            showModal: false,
-            departmentSelection: 'all',
-            priceRangeSelection: 'all',
-            latestDateSelection: 'all',
-            shelfLifeSelection: 'all',
-            unitSelection: 'all',
-            costRangeSelection: 'all'
+            showModal: false
         }
 
-        this.handleDateChange = this
-            .handleDateChange
-            .bind(this);
-
-        this.handleDepartmentSelection = this
-            .handleDepartmentSelection
-            .bind(this);
-        this.handlePriceRangeSelection = this
-            .handlePriceRangeSelection
-            .bind(this);
-        this.handleLatestDateSelection = this
-            .handleLatestDateSelection
-            .bind(this);
-        this.handleShelfLifeSelection = this
-            .handleShelfLifeSelection
-            .bind(this);
-        this.handleUnitSelection = this
-            .handleUnitSelection
-            .bind(this);
-        this.handleCostRangeSelection = this
-            .handleCostRangeSelection
-            .bind(this);
-
-    }
-
-    handleDepartmentSelection(e) {
-        console.log(e.target.value);
-        this.setState({departmentSelection: e.target.value});
-    }
-
-    handlePriceRangeSelection(e) {
-        console.log(e.target.value);
-        this.setState({priceRangeSelection: e.target.value});
-    }
-
-    handleLatestDateSelection(e) {
-        console.log(e.target.value);
-        this.setState({latestDateSelection: e.target.value});
-    }
-
-    handleShelfLifeSelection(e) {
-        console.log(e.target.value);
-        this.setState({shelfLifeSelection: e.target.value});
-    }
-
-    handleUnitSelection(e) {
-        console.log(e.target.value);
-        this.setState({unitSelection: e.target.value});
-    }
-
-    handleCostRangeSelection(e) {
-        console.log(e.target.value);
-        this.setState({costRangeSelection: e.target.value});
-    }
-
-    handleDateChange(date) {
-        this.setState({startDate: date});
     }
 
     handleClick(e) {
@@ -139,10 +76,10 @@ export default class SearchBox extends Component {
                                         <Row>
                                             <FormGroup
                                                 controlId="formControlsSelect"
-                                                onChange={this.handleDepartmentSelection}>
+                                                onChange={this.props.handleDepartmentSelection}>
                                                 <ControlLabel>Select Department</ControlLabel>
                                                 <FormControl componentClass="select" placeholder="Select Department">
-                                                    <option value="all">All</option>
+                                                    <option value="any">Any</option>
                                                     <option value="produce">Produce</option>
                                                     <option value="grocery">Grocery</option>
                                                     <option value="pharmacy">Pharmacy</option>
@@ -150,25 +87,29 @@ export default class SearchBox extends Component {
                                             </FormGroup>
                                         </Row>
                                         <Row>
-                                            <FormGroup controlId="formControlsSelect" onChange={this.handlePriceRangeSelection}>
+                                            <FormGroup
+                                                controlId="formControlsSelect"
+                                                onChange={this.props.handlePriceRangeSelection}>
                                                 <ControlLabel>Select Price Range</ControlLabel>
                                                 <FormControl componentClass="select" placeholder="Select Price Range">
-                                                    <option value="all">All</option>
+                                                    <option value="any">Any</option>
                                                     <option value="zero_two">$0.00 - $2.00</option>
                                                     <option value="two_four">$2.00 - $4.00</option>
                                                     <option value="four_above">> $4.00</option>
                                                 </FormControl>
                                             </FormGroup>
                                         </Row>
-                                        <Row>
+                                        {/*<Row>
                                             <ControlLabel>Select Latest Date Sold</ControlLabel>
-                                            <DatePicker selected={this.state.startDate} onChange={this.handleDateChange}/>
-                                        </Row>
+                                            <DatePicker selected={moment()} onChange={this.props.handleLatestDateChange}/>
+                                        </Row>*/}
                                         <Row>
-                                            <FormGroup controlId="formControlsSelect" onChange={this.handleShelfLifeSelection}> 
+                                            <FormGroup
+                                                controlId="formControlsSelect"
+                                                onChange={this.props.handleShelfLifeSelection}>
                                                 <ControlLabel>Select Shelf Life</ControlLabel>
                                                 <FormControl componentClass="select" placeholder="Select Shelf Life">
-                                                    <option value="all">All</option>
+                                                    <option value="any">Any</option>
                                                     <option value="zero_three">0 days - 3 days</option>
                                                     <option value="three_seven">3 days - 7 days</option>
                                                     <option value="seven_above">> 7 days</option>
@@ -176,20 +117,24 @@ export default class SearchBox extends Component {
                                             </FormGroup>
                                         </Row>
                                         <Row>
-                                            <FormGroup controlId="formControlsSelect" onChange={this.handleUnitSelection}>
+                                            <FormGroup
+                                                controlId="formControlsSelect"
+                                                onChange={this.props.handleUnitSelection}>
                                                 <ControlLabel>Select Unit</ControlLabel>
                                                 <FormControl componentClass="select" placeholder="Select Unit">
-                                                    <option value="all">All</option>
+                                                    <option value="any">Any</option>
                                                     <option value="lb">Pounds (lbs)</option>
                                                     <option value="each">1 Each</option>
                                                 </FormControl>
                                             </FormGroup>
                                         </Row>
                                         <Row>
-                                            <FormGroup controlId="formControlsSelect" onChange={this.handleCostRangeSelection}>
+                                            <FormGroup
+                                                controlId="formControlsSelect"
+                                                onChange={this.props.handleCostRangeSelection}>
                                                 <ControlLabel>Select Cost Range</ControlLabel>
                                                 <FormControl componentClass="select" placeholder="Select Cost Range">
-                                                    <option value="all">All</option>
+                                                    <option value="any">Any</option>
                                                     <option value="zero_two">$0.00 - $2.00</option>
                                                     <option value="two_four">$2.00 - $4.00</option>
                                                     <option value="four_above">> $4.00</option>
@@ -204,7 +149,7 @@ export default class SearchBox extends Component {
                                     </Modal.Footer>
                                 </Modal>
                                 <span>
-                                    <Button onClick={this.props.handleSubmit} bsStyle="primary">Search
+                                    <Button onClick={this.props.handleSubmit} bsStyle="danger">Search
                                     </Button>
                                 </span>
                             </FormGroup>

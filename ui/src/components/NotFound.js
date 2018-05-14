@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
+import {Image} from 'react-bootstrap';
 
 const NotFound = () => (
-    <div>Sorry, unable to locate product</div>
-   );
+    <div>
+        <h2>Sorry, unable to locate product</h2>
+        <Image src={require('../images/sad.jpg')}/>
+    </div>
+);
 
-   export default NotFound;
+export default NotFound;
