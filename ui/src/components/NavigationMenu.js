@@ -10,6 +10,11 @@ export default class NavigationMenu extends Component {
                         <a href="/">Michael's Shop</a>
                     </Navbar.Brand>
                 </Navbar.Header>
+                <Nav>
+                    <NavItem eventKey={1} href="/view/about">
+                        About Us
+                    </NavItem>
+                </Nav>
             </Navbar>
         )
     }

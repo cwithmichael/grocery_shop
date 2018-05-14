@@ -28,6 +28,27 @@ class App extends Component {
         this.checkDepartments = this
             .checkDepartments
             .bind(this);
+        this.handleDepartmentSelection = this
+            .handleDepartmentSelection
+            .bind(this);
+        this.handlePriceRangeSelection = this
+            .handlePriceRangeSelection
+            .bind(this);
+        this.handleLatestDateSelection = this
+            .handleLatestDateSelection
+            .bind(this);
+        this.handleShelfLifeSelection = this
+            .handleShelfLifeSelection
+            .bind(this);
+        this.handleUnitSelection = this
+            .handleUnitSelection
+            .bind(this);
+        this.handleCostRangeSelection = this
+            .handleCostRangeSelection
+            .bind(this);
+        this.searchWithFilters = this
+            .searchWithFilters
+            .bind(this);
 
         this.state = {
             departments: [
@@ -48,8 +69,81 @@ class App extends Component {
             isLoading: false,
             value: '',
             data: null,
-            notFound: false
+            notFound: false,
+            filtersPresent: new Set()
         };
+    }
+
+    handleDepartmentSelection(e) {
+        console.log(e.target.value);
+        this.setState({
+            filtersPresent: [
+                ...this.state.filtersPresent, {
+                    attr: 'department',
+                    val: e.target.value
+                }
+            ]
+        });
+    }
+
+    handlePriceRangeSelection(e) {
+        console.log(e.target.value);
+        this.setState({
+            filtersPresent: [
+                ...this.state.filtersPresent, {
+                    attr: 'price',
+                    val: e.target.value
+                }
+            ]
+        });
+    }
+
+    handleLatestDateSelection(e) {
+        console.log(e.target.value);
+        this.setState({
+            filtersPresent: [
+                ...this.state.filtersPresent, {
+                    attr: 'latestDate',
+                    val: e.target.value
+                }
+            ]
+        });
+    }
+
+    handleShelfLifeSelection(e) {
+        console.log(e.target.value);
+        this.setState({
+            filtersPresent: [
+                ...this.state.filtersPresent, {
+                    attr: 'shelfLife',
+                    val: e.target.value
+                }
+            ]
+        });
+    }
+
+    handleUnitSelection(e) {
+        console.log(e.target.value);
+        this.setState({
+            filtersPresent: [
+                ...this.state.filtersPresent, {
+                    attr: 'unit',
+                    val: e.target.value
+                }
+            ]
+        });
+    }
+
+    handleCostRangeSelection(e) {
+        console.log(e.target.value);
+        this.setState({
+            filtersPresent: [
+                ...this.state.filtersPresent, {
+                    attr: 'cost',
+                    val: e.target.value
+                }
+            ]
+        });
     }
 
     handleChange(e) {
@@ -58,52 +152,57 @@ class App extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // If all numbers then assume searching by PID
-        if (this.state.value.match(/^[0-9]+$/) != null) {
-            console.log(this.state.value);
-            fetch('http://localhost:8080/api/products/search/findByPid?pid=' + this.state.value).then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    if (res.status === 404) {
-                        this.setState({notFound: true});
-                    }
-                    return Promise.reject({status: res.status});
-                    }
-                })
-                .then(res => this.setState({data: res, notFound: false}))
-                .catch(err => this.setState({
-                    data: {
-                        error: err.status
-                    }
-                }));
-        } else if (this.state.value.match(/^[A-Za-z]+$/) != null) {
-            // If all letters then assume searching by description and if that fails then
-            // try searching by department;
-            console.log(this.state.value);
-            fetch('http://localhost:8080/api/products/search/findByDescriptionLike?description=' + this.state.value).then(res => {
-                if (res.ok) {
-                   return res.json();
-                }
-                else {
-                    return Promise.reject({status: res.status});
-                    }
-                })
-                .then(res => {
-                    if (res && res._embedded.products.length > 0) {
-                        this.setState({data: res._embedded.products, notFound: false})
-                    }else {
+        if (this.state.filtersPresent.size < 1) {
+            // If all numbers then assume searching by PID
+            if (this.state.value.match(/^[0-9]+$/) != null) {
+                console.log(this.state.value);
+                fetch('http://localhost:8080/api/products/search/findByPid?pid=' + this.state.value).then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    } else {
+                        if (res.status === 404) {
+                            this.setState({notFound: true});
+                        }
                         return Promise.reject({status: res.status});
                         }
-                })
-                .catch(err => {
+                    })
+                    .then(res => this.setState({data: res, notFound: false}))
+                    .catch(err => this.setState({
+                        data: {
+                            error: err.status
+                        }
+                    }));
+            } else if (this.state.value.match(/^[A-Za-z]+$/) != null) {
+                // If all letters then assume searching by description and if that fails then
+                // try searching by department;
+                console.log(this.state.value);
+                fetch('http://localhost:8080/api/products/search/findByDescriptionLike?description=' + this.state.value).then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    } else {
+                        return Promise.reject({status: res.status});
+                    }
+                }).then(res => {
+                    if (res && res._embedded.products.length > 0) {
+                        this.setState({data: res._embedded.products, notFound: false})
+                    } else {
+                        return Promise.reject({status: res.status});
+                    }
+                }).catch(err => {
                     this
                         .checkDepartments()
                         .then(res => this.setState({data: res._embedded.products, notFound: false}))
                         .catch(err => this.setState({data: [], notFound: false}));
                 });
 
+            }
+        } else {
+            this
+                .searchWithFilters()
+                .then(res => this.setState({data: res._embedded.products, notFound: false}))
+                .catch(err => this.setState({data: [], notFound: false}));
         }
+        this.setState({filtersPresent: new Set()});
 
     }
 
@@ -123,6 +222,53 @@ class App extends Component {
 
     }
 
+    searchWithFilters() {
+        console.log("Searching with filters" + this.state.filtersPresent);
+        var fetchUrl = 'http://localhost:8080/api/products/search/';
+        if (this.state.filtersPresent.length == 1) {
+            if (this.state.filtersPresent[0].attr === "price") {
+                fetchUrl += 'findByDescriptionLikeAndPriceBetween?description=' + this.state.value;
+                if (this.state.filtersPresent[0].val === "zero_two") {
+                    fetchUrl += '&priceStart=0&priceEnd=2';
+                } else if (this.state.filtersPresent[0].val === "two_four") {
+                    fetchUrl += '&priceStart=2&priceEnd=4';
+                } else {
+                    fetchUrl += '&priceStart=4&priceEnd=999999999'
+                }
+            }
+            return fetch(fetchUrl).then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    if (res.status === 404) {
+                        this.setState({data: [], notFound: true});
+                    }
+                    return Promise.reject({status: res.status});
+                }
+            });
+        } else {
+            fetchUrl += 'findByDescriptionlike?description=' + this.state.value;
+            return fetch(fetchUrl).then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    if (res.status === 404) {
+                        this.setState({data: [], notFound: true});
+                    }
+                    return Promise.reject({status: res.status});
+                }
+            });
+
+        }
+        /*this
+            .state
+            .filtersPresent
+            .forEach((el) => {
+                console.log(el);
+            });*/
+
+    }
+
     render() {
         return (
             <div className="App">
@@ -135,6 +281,12 @@ class App extends Component {
                             <SearchBox
                                 className="searchBox"
                                 state={this.state}
+                                handleDepartmentSelection={this.handleDepartmentSelection}
+                                handlePriceRangeSelection={this.handlePriceRangeSelection}
+                                handleLatestDateSelection={this.handleLatestDateSelection}
+                                handleShelfLifeSelection={this.handleShelfLifeSelection}
+                                handleUnitSelection={this.handleUnitSelection}
+                                handleCostRangeSelection={this.handleCostRangeSelection}
                                 handleChange={this.handleChange}
                                 handleSubmit={this.handleSubmit}/>
                         </Col>

@@ -141,6 +141,13 @@ footer {
   height: 80px;
 }
 
-.navbar-left {
-  width: 100%;
+.navbar-brand {
+  font-family: 'Skranji', cursive;
+  font-size: 24px;
+}
+
+
+.navbar-default .navbar-nav > li > a {
+  font-family: 'Skranjk', cursive;
+  color:black;
 }

@@ -34,7 +34,15 @@ public interface ProductRepository extends MongoRepository<Product, String> {
 	public List<Product> findByCost(@Param("cost") BigDecimal cost);
 
 	public List<Product> findByDescriptionLike(@Param("description") String description);
-	
+
 	public List<Product> findByDepartmentLike(@Param("department") String description);
+
+	public List<Product> findByDescriptionLikeAndPriceBetween(@Param("description") String description, @Param("priceStart") BigDecimal from, @Param("priceEnd") BigDecimal to);
+
+	public List<Product> findByDescriptionLikeAndCostBetween(@Param("description") String description,@Param("costStart") BigDecimal from, @Param("costEnd") BigDecimal to);
+	
+	public List<Product> findByDepartmentLikeAndPriceBetween(@Param("department") String department, @Param("priceStart") BigDecimal from, @Param("priceEnd") BigDecimal to);
+
+	public List<Product> findByDepartmentLikeAndCostBetween(@Param("department") String department, @Param("costStart") BigDecimal from, @Param("costEnd") BigDecimal to);
 
 }
