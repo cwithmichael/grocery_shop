@@ -21,6 +21,11 @@ import com.cwithmichael.groceries.models.Product;
 public final class CSVParser {
 	private static final Log log = LogFactory.getLog(CSVParser.class);
 	private CSVParser() {}
+
+	/**
+	 * Gets a list of Product objects from a CSV file
+	 * @return list of products
+	 */
 	public static List<Product> getProducts() throws FileNotFoundException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		File file = new File(classLoader.getResource("products.csv").getFile());

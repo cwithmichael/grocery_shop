@@ -38,7 +38,7 @@ public class GroceriesApplication implements CommandLineRunner {
 		}
 		System.out.println();
 
-		// fetch an individual customer
+		// fetch an individual product
 		System.out.println("Product found with findById('753542'):");
 		System.out.println("--------------------------------");
 		System.out.println(repository.findByPid("753542"));
