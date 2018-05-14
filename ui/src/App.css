@@ -151,3 +151,8 @@ footer {
   font-family: 'Skranjk', cursive;
   color:black;
 }
+h5 {
+  font-family: 'Times New Roman', Times, serif;
+  align-content: center;
+  text-transform: capitalize;
+}

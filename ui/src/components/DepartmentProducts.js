@@ -5,12 +5,14 @@ import {
     Image,
     Col,
     SplitButton,
-    MenuItem
+    MenuItem,
+    OverlayTrigger
 } from 'react-bootstrap';
 import store from '../images/store.jpg';
 import fruit from '../images/fruit.jpg';
 import medicine from '../images/medicine.jpg';
 import '../App.css';
+import ProductPopover from './ProductPopover.js';
 var _ = require('lodash');
 
 export default class DepartmentProducts extends Component {
@@ -48,7 +50,7 @@ export default class DepartmentProducts extends Component {
         if (this.state.isLoading) {
             return <p>Loading...</p>;
         }
-
+        var count = 0;
         return (
             <div className="DepartmentProducts">
                 <h2>{this.props.department}</h2>
@@ -61,14 +63,26 @@ export default class DepartmentProducts extends Component {
                         {this
                             .state
                             .products
-                            .map((product) => <Col xs={6} md={4} key={product.pid}>
-                                <Image
-                                    src={require(`../images/${product.description.toLowerCase()}.jpg`)}
-                                    className="productThumb center-block"
-                                    alt="product"
-                                    responsive/>
-                                <h3>{_.startCase(product.description)}<br/>${Number(product.price).toFixed(2)} ({product.xFor} {product.unit})</h3>
-                            </Col>)}
+                            .map((product) => {
+                                count++; // If we hit a multiple of 3 move the popover to the left
+                                return <Col xs={6} md={4} key={product.pid}>
+                                    <OverlayTrigger
+                                        trigger={['hover', 'focus']}
+                                        placement={count % 3 == 0
+                                        ? 'left'
+                                        : 'right'}
+                                        overlay={ProductPopover(product)}>
+                                        <Image
+                                            src={require(`../images/${product.description.toLowerCase()}.jpg`)}
+                                            className="productThumb center-block"
+                                            alt="product"
+                                            responsive/>
+                                    </OverlayTrigger>
+
+                                    <h3>{_.startCase(product.description)}<br/>${Number(product.price).toFixed(2)}
+                                        ({product.xFor} {product.unit})</h3>
+                                </Col>;
+                            })}
                     </Row>
                 </Grid>
 
